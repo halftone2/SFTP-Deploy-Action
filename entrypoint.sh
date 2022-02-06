@@ -15,9 +15,11 @@ chmod 600 $TEMP_SSH_PRIVATE_KEY_FILE
 echo 'ssh start'
 
 if [ ! -z "$8" ] 
-	then 
+	then
+	echo 'running remote command $8' 
 	ssh -o StrictHostKeyChecking=no -p $3 -i $TEMP_SSH_PRIVATE_KEY_FILE $1@$2 "mkdir -p $6; $8"
 	else
+	echo 'no remote command to run' 
 	ssh -o StrictHostKeyChecking=no -p $3 -i $TEMP_SSH_PRIVATE_KEY_FILE $1@$2 mkdir -p $6
 	
 fi
@@ -31,7 +33,8 @@ printf "%s" "put -r $5 $6" >$TEMP_SFTP_FILE
 sftp -b $TEMP_SFTP_FILE -P $3 $7 -o StrictHostKeyChecking=no -i $TEMP_SSH_PRIVATE_KEY_FILE $1@$2
 
 if [ ! -z "$9" ] 
-	then 
+	then
+	echo 'running remote command $9' 
 	ssh -o StrictHostKeyChecking=no -p $3 -i $TEMP_SSH_PRIVATE_KEY_FILE $1@$2 "$9;"
 fi
 
