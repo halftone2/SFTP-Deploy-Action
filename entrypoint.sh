@@ -38,7 +38,6 @@ if [ ! -z "$9" ]
 	ssh -o StrictHostKeyChecking=no -p $3 -i $TEMP_SSH_PRIVATE_KEY_FILE $1@$2 "$9;"
 fi
 
-${}
 echo 'deploy success'
 exit 0
 
