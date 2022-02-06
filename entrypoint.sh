@@ -14,14 +14,28 @@ chmod 600 $TEMP_SSH_PRIVATE_KEY_FILE
 
 echo 'ssh start'
 
-ssh -o StrictHostKeyChecking=no -p $3 -i $TEMP_SSH_PRIVATE_KEY_FILE $1@$2 mkdir -p $6
+if [ ! -z "$8" ] 
+	then 
+	ssh -o StrictHostKeyChecking=no -p $3 -i $TEMP_SSH_PRIVATE_KEY_FILE $1@$2 "mkdir -p $6; $8"
+	else
+	ssh -o StrictHostKeyChecking=no -p $3 -i $TEMP_SSH_PRIVATE_KEY_FILE $1@$2 mkdir -p $6
+	
+fi
+
 
 echo 'sftp start'
 # create a temporary file containing sftp commands
 printf "%s" "put -r $5 $6" >$TEMP_SFTP_FILE
+
 #-o StrictHostKeyChecking=no avoid Host key verification failed.
 sftp -b $TEMP_SFTP_FILE -P $3 $7 -o StrictHostKeyChecking=no -i $TEMP_SSH_PRIVATE_KEY_FILE $1@$2
 
+if [ ! -z "$9" ] 
+	then 
+	ssh -o StrictHostKeyChecking=no -p $3 -i $TEMP_SSH_PRIVATE_KEY_FILE $1@$2 "$9;"
+fi
+
+${}
 echo 'deploy success'
 exit 0
 

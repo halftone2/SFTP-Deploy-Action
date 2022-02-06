@@ -27,7 +27,13 @@ inputs:
   args:
     description: 'sftp args'
     required: false
-
+    default: ""
+  remote_command_before:
+    description: 'command to run before upload'
+    required: false
+  remote_command_after:
+    description: 'command to run after upload'
+    required: false
 
 runs:
   using: 'docker'
@@ -40,6 +46,9 @@ runs:
     - ${{ inputs.local_path }}
     - ${{ inputs.remote_path }}
     - ${{ inputs.args }}
+    - ${{ inputs.remote_command_before }}
+    - ${{ inputs.remote_command_after }}
+
 
 branding:
   icon: 'upload-cloud'  
