@@ -25,7 +25,7 @@ if [ ! -z "$8" ]
 fi
 
 
-echo 'sftp start'
+echo 'sftp startx'
 # create a temporary file containing sftp commands
 printf "%s" "put -r $5 $6" >$TEMP_SFTP_FILE
 
